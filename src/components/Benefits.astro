@@ -1,0 +1,126 @@
+---
+const benefits = [
+  {
+    title: 'Para el Colegio',
+    items: [
+      'Reduce hasta 80% el tiempo en tareas administrativas',
+      'Elimina el papel: circulares y autorizaciones digitales',
+      'Control total sobre quien lee cada comunicado',
+      'Reportes de engagement con las familias',
+    ],
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+    </svg>`,
+    color: 'primary',
+  },
+  {
+    title: 'Para los Docentes',
+    items: [
+      'Comunicate con familias sin dar tu numero personal',
+      'Envia tareas, recordatorios y fotos facilmente',
+      'Ve quien leyo tus mensajes en tiempo real',
+      'Menos reuniones presenciales, mas eficiencia',
+    ],
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+    </svg>`,
+    color: 'emerald',
+  },
+  {
+    title: 'Para las Familias',
+    items: [
+      'Todo en una sola app: circulares, eventos, fotos',
+      'Firma autorizaciones desde el celular en segundos',
+      'Nunca mas pierdas un comunicado importante',
+      'Contacto directo con docentes cuando lo necesites',
+    ],
+    icon: `<svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+    </svg>`,
+    color: 'blue',
+  },
+];
+
+const colorClasses = {
+  primary: {
+    bg: 'bg-primary-100',
+    text: 'text-primary-600',
+    border: 'border-primary-200',
+  },
+  emerald: {
+    bg: 'bg-emerald-100',
+    text: 'text-emerald-600',
+    border: 'border-emerald-200',
+  },
+  blue: {
+    bg: 'bg-blue-100',
+    text: 'text-blue-600',
+    border: 'border-blue-200',
+  },
+};
+---
+
+<section id="benefits" class="py-20 lg:py-28 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center px-3 py-1 bg-primary-100 text-primary-700 rounded-full text-sm font-medium mb-4">
+        Beneficios
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">
+        Todos ganan con Kairos
+      </h2>
+      <p class="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
+        Una plataforma que beneficia a toda la comunidad educativa.
+      </p>
+    </div>
+
+    <!-- Benefits grid -->
+    <div class="grid md:grid-cols-3 gap-8">
+      {benefits.map(benefit => {
+        const colors = colorClasses[benefit.color as keyof typeof colorClasses];
+        return (
+          <div class={`bg-white rounded-2xl p-8 border ${colors.border} hover:shadow-lg transition-shadow`}>
+            <div class={`w-16 h-16 ${colors.bg} ${colors.text} rounded-2xl flex items-center justify-center mb-6`}>
+              <Fragment set:html={benefit.icon} />
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-4">
+              {benefit.title}
+            </h3>
+            <ul class="space-y-3">
+              {benefit.items.map(item => (
+                <li class="flex items-start">
+                  <svg class={`w-5 h-5 ${colors.text} mr-2 flex-shrink-0 mt-0.5`} fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                  <span class="text-gray-600">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Testimonial -->
+    <div class="mt-16 bg-white rounded-2xl p-8 md:p-12 border border-gray-200">
+      <div class="max-w-3xl mx-auto text-center">
+        <svg class="w-12 h-12 text-primary-200 mx-auto mb-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+        </svg>
+        <blockquote class="text-xl md:text-2xl text-gray-700 font-medium mb-6">
+          "Antes pasabamos horas fotocopiando circulares y llamando a padres que no las devolvian firmadas. Con Kairos todo es instantaneo y tenemos trazabilidad completa."
+        </blockquote>
+        <div class="flex items-center justify-center">
+          <div class="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mr-4">
+            <span class="text-primary-600 font-bold">ML</span>
+          </div>
+          <div class="text-left">
+            <div class="font-semibold text-gray-900">Maria Lopez</div>
+            <div class="text-gray-500 text-sm">Directora, Colegio San Martin</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

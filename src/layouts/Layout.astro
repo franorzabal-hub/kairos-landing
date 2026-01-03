@@ -6,7 +6,7 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Kairos - Enterprise SaaS Platform powered by Frappe" } = Astro.props;
+const { title, description = "Kairos - La plataforma de comunicacion escolar que conecta colegios con familias. Circulares, autorizaciones, eventos y mensajeria en un solo lugar." } = Astro.props;
 ---
 
 <!doctype html>
@@ -23,6 +23,12 @@ const { title, description = "Kairos - Enterprise SaaS Platform powered by Frapp
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og-image.png" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -1,8 +1,8 @@
 ---
 const navLinks = [
   { href: '#features', label: 'Funcionalidades' },
+  { href: '#benefits', label: 'Beneficios' },
   { href: '#pricing', label: 'Precios' },
-  { href: '#signup', label: 'Comenzar' },
 ];
 ---
 
@@ -11,7 +11,7 @@ const navLinks = [
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
       <a href="/" class="flex items-center space-x-2">
-        <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-700 rounded-lg flex items-center justify-center">
+        <div class="w-8 h-8 bg-gradient-to-br from-primary-500 to-emerald-600 rounded-lg flex items-center justify-center">
           <span class="text-white font-bold text-lg">K</span>
         </div>
         <span class="text-xl font-bold text-gray-900">Kairos</span>
@@ -43,6 +43,7 @@ const navLinks = [
           type="button"
           class="md:hidden p-2 text-gray-600 hover:text-gray-900"
           id="mobile-menu-btn"
+          aria-label="Menu"
         >
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -63,6 +64,12 @@ const navLinks = [
           {link.label}
         </a>
       ))}
+      <a
+        href="#signup"
+        class="block px-3 py-2 text-primary-600 font-medium rounded-lg hover:bg-primary-50"
+      >
+        Prueba Gratis
+      </a>
     </div>
   </div>
 </header>

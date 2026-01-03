@@ -1,47 +1,51 @@
 ---
 const plans = [
   {
-    name: 'Starter',
-    price: '49',
-    description: 'Perfecto para pequenas empresas que estan comenzando.',
+    name: 'Inicial',
+    price: '29',
+    period: '/mes',
+    description: 'Para colegios pequenos que quieren digitalizar su comunicacion.',
+    students: 'Hasta 200 alumnos',
     features: [
-      'Hasta 5 usuarios',
-      'Modulos basicos (CRM, Inventario)',
-      '5 GB almacenamiento',
+      'Circulares ilimitadas',
+      'Autorizaciones digitales',
+      'Calendario de eventos',
+      'App para padres (iOS/Android)',
       'Soporte por email',
-      'Backups diarios',
     ],
-    cta: 'Comenzar Gratis',
+    cta: 'Comenzar Prueba Gratis',
     popular: false,
   },
   {
-    name: 'Business',
-    price: '149',
-    description: 'Para empresas en crecimiento que necesitan mas poder.',
+    name: 'Crecimiento',
+    price: '79',
+    period: '/mes',
+    description: 'Para colegios medianos con necesidades avanzadas.',
+    students: 'Hasta 500 alumnos',
     features: [
-      'Hasta 25 usuarios',
-      'Todos los modulos incluidos',
-      '50 GB almacenamiento',
+      'Todo lo del plan Inicial',
+      'Mensajeria directa docente-familia',
+      'Galeria de fotos ilimitada',
+      'Reportes de engagement',
+      'Segmentacion por curso/grupo',
       'Soporte prioritario',
-      'API access',
-      'Integraciones avanzadas',
-      'Reportes personalizados',
     ],
-    cta: 'Comenzar Gratis',
+    cta: 'Comenzar Prueba Gratis',
     popular: true,
   },
   {
-    name: 'Enterprise',
-    price: 'Custom',
-    description: 'Solucion a medida para grandes organizaciones.',
+    name: 'Premium',
+    price: '149',
+    period: '/mes',
+    description: 'Para instituciones grandes con multiples sedes.',
+    students: 'Alumnos ilimitados',
     features: [
-      'Usuarios ilimitados',
-      'Modulos personalizados',
-      'Almacenamiento ilimitado',
-      'Soporte 24/7 dedicado',
-      'SLA garantizado',
-      'Implementacion asistida',
-      'Capacitacion incluida',
+      'Todo lo del plan Crecimiento',
+      'Multi-sede',
+      'API para integraciones',
+      'Onboarding personalizado',
+      'Account manager dedicado',
+      'SLA garantizado 99.9%',
     ],
     cta: 'Contactar Ventas',
     popular: false,
@@ -49,22 +53,25 @@ const plans = [
 ];
 ---
 
-<section id="pricing" class="py-20 lg:py-28 bg-gray-50">
+<section id="pricing" class="py-20 lg:py-28 bg-white">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section header -->
     <div class="text-center mb-16">
+      <div class="inline-flex items-center px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium mb-4">
+        Precios
+      </div>
       <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">
-        Precios simples y transparentes
+        Planes para cada colegio
       </h2>
       <p class="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
-        Elige el plan que mejor se adapte a tu empresa. Sin costos ocultos.
+        Precios transparentes basados en la cantidad de alumnos. Sin costos ocultos.
       </p>
     </div>
 
     <!-- Pricing cards -->
     <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
       {plans.map(plan => (
-        <div class={`relative bg-white rounded-2xl p-8 ${plan.popular ? 'ring-2 ring-primary-600 shadow-xl scale-105' : 'border border-gray-200'}`}>
+        <div class={`relative bg-white rounded-2xl p-8 ${plan.popular ? 'ring-2 ring-primary-600 shadow-xl scale-105' : 'border border-gray-200 shadow-sm'}`}>
           {plan.popular && (
             <div class="absolute -top-4 left-1/2 -translate-x-1/2">
               <span class="bg-primary-600 text-white text-sm font-medium px-4 py-1 rounded-full">
@@ -75,23 +82,21 @@ const plans = [
 
           <div class="text-center mb-6">
             <h3 class="text-xl font-bold text-gray-900">{plan.name}</h3>
-            <div class="mt-4">
-              {plan.price === 'Custom' ? (
-                <span class="text-4xl font-bold text-gray-900">Personalizado</span>
-              ) : (
-                <>
-                  <span class="text-4xl font-bold text-gray-900">${plan.price}</span>
-                  <span class="text-gray-600">/mes</span>
-                </>
-              )}
+            <div class="mt-4 flex items-baseline justify-center">
+              <span class="text-lg text-gray-500">USD</span>
+              <span class="text-5xl font-bold text-gray-900 mx-1">{plan.price}</span>
+              <span class="text-gray-500">{plan.period}</span>
             </div>
-            <p class="mt-2 text-gray-600 text-sm">{plan.description}</p>
+            <div class="mt-2 inline-flex items-center px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm">
+              {plan.students}
+            </div>
+            <p class="mt-3 text-gray-600 text-sm">{plan.description}</p>
           </div>
 
           <ul class="space-y-3 mb-8">
             {plan.features.map(feature => (
               <li class="flex items-start">
-                <svg class="w-5 h-5 text-primary-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <svg class="w-5 h-5 text-emerald-500 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                   <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
                 </svg>
                 <span class="text-gray-600 text-sm">{feature}</span>
@@ -111,6 +116,33 @@ const plans = [
           </a>
         </div>
       ))}
+    </div>
+
+    <!-- FAQ teaser -->
+    <div class="mt-16 text-center">
+      <p class="text-gray-600 mb-4">
+        Todos los planes incluyen 14 dias de prueba gratis. Sin tarjeta de credito.
+      </p>
+      <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-500">
+        <div class="flex items-center">
+          <svg class="w-5 h-5 text-emerald-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          Cancela cuando quieras
+        </div>
+        <div class="flex items-center">
+          <svg class="w-5 h-5 text-emerald-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          Migracion de datos gratuita
+        </div>
+        <div class="flex items-center">
+          <svg class="w-5 h-5 text-emerald-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+          </svg>
+          Capacitacion incluida
+        </div>
+      </div>
     </div>
   </div>
 </section>
