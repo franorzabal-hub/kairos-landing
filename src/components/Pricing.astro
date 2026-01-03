@@ -1,0 +1,116 @@
+---
+const plans = [
+  {
+    name: 'Starter',
+    price: '49',
+    description: 'Perfecto para pequenas empresas que estan comenzando.',
+    features: [
+      'Hasta 5 usuarios',
+      'Modulos basicos (CRM, Inventario)',
+      '5 GB almacenamiento',
+      'Soporte por email',
+      'Backups diarios',
+    ],
+    cta: 'Comenzar Gratis',
+    popular: false,
+  },
+  {
+    name: 'Business',
+    price: '149',
+    description: 'Para empresas en crecimiento que necesitan mas poder.',
+    features: [
+      'Hasta 25 usuarios',
+      'Todos los modulos incluidos',
+      '50 GB almacenamiento',
+      'Soporte prioritario',
+      'API access',
+      'Integraciones avanzadas',
+      'Reportes personalizados',
+    ],
+    cta: 'Comenzar Gratis',
+    popular: true,
+  },
+  {
+    name: 'Enterprise',
+    price: 'Custom',
+    description: 'Solucion a medida para grandes organizaciones.',
+    features: [
+      'Usuarios ilimitados',
+      'Modulos personalizados',
+      'Almacenamiento ilimitado',
+      'Soporte 24/7 dedicado',
+      'SLA garantizado',
+      'Implementacion asistida',
+      'Capacitacion incluida',
+    ],
+    cta: 'Contactar Ventas',
+    popular: false,
+  },
+];
+---
+
+<section id="pricing" class="py-20 lg:py-28 bg-gray-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section header -->
+    <div class="text-center mb-16">
+      <h2 class="text-3xl sm:text-4xl font-bold text-gray-900">
+        Precios simples y transparentes
+      </h2>
+      <p class="mt-4 text-xl text-gray-600 max-w-2xl mx-auto">
+        Elige el plan que mejor se adapte a tu empresa. Sin costos ocultos.
+      </p>
+    </div>
+
+    <!-- Pricing cards -->
+    <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+      {plans.map(plan => (
+        <div class={`relative bg-white rounded-2xl p-8 ${plan.popular ? 'ring-2 ring-primary-600 shadow-xl scale-105' : 'border border-gray-200'}`}>
+          {plan.popular && (
+            <div class="absolute -top-4 left-1/2 -translate-x-1/2">
+              <span class="bg-primary-600 text-white text-sm font-medium px-4 py-1 rounded-full">
+                Mas Popular
+              </span>
+            </div>
+          )}
+
+          <div class="text-center mb-6">
+            <h3 class="text-xl font-bold text-gray-900">{plan.name}</h3>
+            <div class="mt-4">
+              {plan.price === 'Custom' ? (
+                <span class="text-4xl font-bold text-gray-900">Personalizado</span>
+              ) : (
+                <>
+                  <span class="text-4xl font-bold text-gray-900">${plan.price}</span>
+                  <span class="text-gray-600">/mes</span>
+                </>
+              )}
+            </div>
+            <p class="mt-2 text-gray-600 text-sm">{plan.description}</p>
+          </div>
+
+          <ul class="space-y-3 mb-8">
+            {plan.features.map(feature => (
+              <li class="flex items-start">
+                <svg class="w-5 h-5 text-primary-600 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-gray-600 text-sm">{feature}</span>
+              </li>
+            ))}
+          </ul>
+
+          <a
+            href="#signup"
+            class={`block w-full py-3 px-4 text-center font-semibold rounded-xl transition-colors ${
+              plan.popular
+                ? 'bg-primary-600 text-white hover:bg-primary-700'
+                : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+            }`}
+          >
+            {plan.cta}
+          </a>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
