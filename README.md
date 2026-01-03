@@ -1,6 +1,6 @@
 # Kairos Landing Page
 
-Landing page for the Kairos SaaS platform - an enterprise business management solution powered by Frappe.
+Landing page for Kairos - a school-parent communication platform powered by Frappe.
 
 ## Tech Stack
 
@@ -123,7 +123,7 @@ Update the following substitution variables in `cloudbuild.yaml`:
 ## Features
 
 - **Hero Section:** Eye-catching headline and CTAs
-- **Features Section:** Showcase of platform capabilities (ERP, CRM, Accounting, HR, etc.)
+- **Features Section:** Showcase of platform capabilities (communications, authorizations, events, etc.)
 - **Pricing Section:** Three-tier pricing with feature comparison
 - **Signup Form:** Lead capture form that integrates with the control-plane API
 
