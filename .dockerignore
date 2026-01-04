@@ -1,8 +1,8 @@
 # Dependencies
 node_modules/
 
-# Build output
-dist/
+# Build output (NOT excluded - we need it for production image)
+# dist/
 
 # Git
 .git/

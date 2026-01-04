@@ -1,26 +1,10 @@
 # ================================
-# Stage 1: Builder
+# Kairos Landing - Production Image
 # ================================
-FROM node:20-alpine AS builder
+# Note: Build is done in Cloud Build with env vars.
+# This Dockerfile just packages the pre-built dist folder.
 
-WORKDIR /app
-
-# Copy package files for dependency installation
-COPY package.json package-lock.json* ./
-
-# Install dependencies with clean install for reproducible builds
-RUN npm ci --ignore-scripts
-
-# Copy source code
-COPY . .
-
-# Build the Astro project (generates static files in dist/)
-RUN npm run build
-
-# ================================
-# Stage 2: Production
-# ================================
-FROM node:20-alpine AS production
+FROM node:20-alpine
 
 # Install dumb-init for proper signal handling
 RUN apk add --no-cache dumb-init
@@ -31,8 +15,8 @@ RUN addgroup --system --gid 1001 nodejs && \
 
 WORKDIR /app
 
-# Copy built static files from builder
-COPY --from=builder --chown=astro:nodejs /app/dist ./dist
+# Copy pre-built static files from Cloud Build
+COPY --chown=astro:nodejs dist ./dist
 
 # Install a lightweight static file server
 RUN npm install -g serve@14

@@ -9,7 +9,6 @@ substitutions:
   _SERVICE_NAME: kairos-landing
   _REGION: us-central1
   _PORT: '4321'
-  _CONTROL_PLANE_URL: 'https://kairos-control-plane-684614817316.us-central1.run.app'
 
 steps:
   # Install dependencies
@@ -25,14 +24,13 @@ steps:
     args:
       - '-c'
       - |
-        export PUBLIC_GOOGLE_CLIENT_ID="$$GOOGLE_CLIENT_ID"
-        export PUBLIC_CONTROL_PLANE_API_URL="${_CONTROL_PLANE_URL}"
-        export PUBLIC_API_URL="${_CONTROL_PLANE_URL}"
+        export PUBLIC_GOOGLE_CLIENT_ID="684614817316-7jguqf1cngtr9dn79kjpnjdmrukdua59.apps.googleusercontent.com"
+        export PUBLIC_CONTROL_PLANE_API_URL="https://kairos-control-plane-684614817316.us-central1.run.app"
+        export PUBLIC_API_URL="https://kairos-control-plane-684614817316.us-central1.run.app"
         npm run build
-    secretEnv: ['GOOGLE_CLIENT_ID']
     waitFor: ['install']
 
-  # Build Docker image
+  # Build Docker image from workspace (includes built dist/)
   - name: 'gcr.io/cloud-builders/docker'
     id: 'docker-build'
     args:
@@ -77,8 +75,3 @@ images:
 
 timeout: '900s'
 tags: ['landing', 'deploy']
-
-availableSecrets:
-  secretManager:
-    - versionName: projects/$PROJECT_ID/secrets/google-oauth-client-id/versions/latest
-      env: 'GOOGLE_CLIENT_ID'
