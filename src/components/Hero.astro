@@ -135,7 +135,7 @@ const apiUrl = import.meta.env.PUBLIC_API_URL || 'http://localhost:8000';
               placeholder="mi-colegio"
             />
             <span class="inline-flex items-center px-4 py-3 bg-gray-100 border border-l-0 border-gray-300 rounded-r-xl text-gray-600">
-              .kairos.app
+              .1kairos.com
             </span>
           </div>
         </div>
@@ -237,7 +237,7 @@ const apiUrl = import.meta.env.PUBLIC_API_URL || 'http://localhost:8000';
     const subdomain = subdomainInput?.value?.trim().toLowerCase();
     if (subdomain) {
       // Redirect to the school's login page
-      window.location.href = `https://${subdomain}.kairos.app/login`;
+      window.location.href = `https://${subdomain}.1kairos.com/login`;
     } else {
       subdomainInput?.focus();
     }
@@ -262,7 +262,7 @@ const apiUrl = import.meta.env.PUBLIC_API_URL || 'http://localhost:8000';
 
     tenants.forEach((tenant) => {
       const link = document.createElement('a');
-      link.href = `https://${tenant.subdomain}.kairos.app/login`;
+      link.href = `https://${tenant.subdomain}.1kairos.com/login`;
       link.className = 'flex items-center justify-between p-3 bg-white rounded-lg border border-green-200 hover:border-primary-300 transition-colors mb-2';
 
       const nameSpan = document.createElement('span');
