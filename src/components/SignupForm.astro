@@ -6,7 +6,7 @@ const googleClientId = import.meta.env.PUBLIC_GOOGLE_CLIENT_ID || '';
 
 <section id="signup" class="py-20 lg:py-28 bg-gradient-to-br from-primary-600 to-primary-800">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="max-w-md mx-auto">
+    <div class="max-w-2xl mx-auto">
       <!-- Section header -->
       <div class="text-center mb-10">
         <h2 class="text-3xl sm:text-4xl font-bold text-white">
@@ -17,273 +17,157 @@ const googleClientId = import.meta.env.PUBLIC_GOOGLE_CLIENT_ID || '';
         </p>
       </div>
 
-      <!-- Card container -->
-      <div class="bg-white rounded-2xl p-8 shadow-2xl">
-
-        <!-- Step 1: Choose method -->
-        <div id="step-choose-method">
-          <div class="text-center mb-6">
-            <span class="inline-block px-3 py-1 bg-primary-100 text-primary-700 text-sm font-medium rounded-full mb-3">
-              Paso 1 de 2
-            </span>
-            <h3 class="text-xl font-semibold text-gray-900">Elige como registrarte</h3>
-            <p class="text-gray-500 mt-2 text-sm">La forma mas rapida es con Google</p>
-          </div>
-
-          <!-- Google Sign-In (Primary) -->
-          <div class="space-y-4">
-            <div id="google-signin-container" class="flex flex-col items-center">
-              <div id="google-signin-btn" class="w-full flex justify-center"></div>
-              <div id="google-loading" class="py-3">
-                <svg class="animate-spin h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                </svg>
-              </div>
-            </div>
-
-            <!-- Divider -->
-            <div class="relative py-2">
-              <div class="absolute inset-0 flex items-center">
-                <div class="w-full border-t border-gray-200"></div>
-              </div>
-              <div class="relative flex justify-center">
-                <span class="px-3 bg-white text-gray-400 text-sm">o</span>
-              </div>
-            </div>
-
-            <!-- Email option (Secondary) -->
-            <button
-              type="button"
-              id="show-email-form-btn"
-              class="w-full flex items-center justify-center py-3 px-4 border-2 border-gray-200 rounded-xl text-gray-700 font-medium hover:border-primary-300 hover:bg-primary-50 transition-all"
-            >
-              <svg class="w-5 h-5 mr-2 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+      <!-- Signup form -->
+      <form id="signup-form" class="bg-white rounded-2xl p-8 shadow-2xl">
+        <div class="space-y-6">
+          <!-- Google Sign-In Button -->
+          <div class="flex flex-col items-center">
+            <div id="google-signin-btn" class="w-full flex justify-center"></div>
+            <!-- Google connected success state (hidden by default) -->
+            <div id="google-connected" class="hidden flex items-center justify-center py-3 px-4 bg-green-50 border border-green-200 rounded-xl w-full max-w-xs">
+              <svg class="w-5 h-5 text-green-600 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
               </svg>
-              Registrarme con email
-            </button>
-          </div>
-        </div>
-
-        <!-- Step 2: Google flow - Just school name -->
-        <form id="step-google-form" class="hidden">
-          <div class="text-center mb-6">
-            <span class="inline-block px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full mb-3">
-              Paso 2 de 2
-            </span>
-            <h3 class="text-xl font-semibold text-gray-900">Datos de tu institucion</h3>
+              <span id="google-connected-email" class="text-green-800 font-medium text-sm truncate"></span>
+            </div>
+            <div id="google-loading" class="hidden py-3">
+              <svg class="animate-spin h-6 w-6 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </div>
           </div>
 
-          <!-- Connected account badge -->
-          <div id="google-connected-badge" class="flex items-center justify-center py-2 px-4 bg-green-50 border border-green-200 rounded-lg mb-6">
-            <svg class="w-4 h-4 text-green-600 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-            </svg>
-            <span id="google-email-display" class="text-green-700 text-sm font-medium truncate"></span>
+          <!-- Divider -->
+          <div id="google-divider" class="relative">
+            <div class="absolute inset-0 flex items-center">
+              <div class="w-full border-t border-gray-300"></div>
+            </div>
+            <div class="relative flex justify-center text-sm">
+              <span class="px-4 bg-white text-gray-500">o continuar con email</span>
+            </div>
           </div>
 
-          <!-- School name -->
-          <div class="mb-6">
-            <label for="google_school_name" class="block text-sm font-medium text-gray-700 mb-2">
-              Nombre de tu Colegio o Institucion
+          <!-- Company name -->
+          <div>
+            <label for="company" class="block text-sm font-medium text-gray-700 mb-2">
+              Nombre de la Empresa
             </label>
             <input
               type="text"
-              id="google_school_name"
-              name="school_name"
+              id="company"
+              name="company"
               required
               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-              placeholder="Ej: Colegio San Jose"
+              placeholder="Tu Empresa S.A."
             />
-            <p class="mt-2 text-xs text-gray-500">Este nombre aparecera en tu plataforma</p>
+          </div>
+
+          <!-- Admin Name (for Google SSO) -->
+          <div id="admin-name-field" class="hidden">
+            <label for="admin_name" class="block text-sm font-medium text-gray-700 mb-2">
+              Nombre del Administrador
+            </label>
+            <input
+              type="text"
+              id="admin_name"
+              name="admin_name"
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors bg-gray-50"
+              placeholder="Tu nombre"
+              readonly
+            />
+          </div>
+
+          <!-- Email -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+              Email Corporativo
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+              placeholder="tu@empresa.com"
+            />
+          </div>
+
+          <!-- Subdomain (auto-generated from company name) -->
+          <div>
+            <label for="subdomain" class="block text-sm font-medium text-gray-700 mb-2">
+              Tu subdominio
+            </label>
+            <div class="flex">
+              <input
+                type="text"
+                id="subdomain"
+                name="subdomain"
+                required
+                pattern="[a-z0-9-]+"
+                class="flex-1 px-4 py-3 border border-gray-300 rounded-l-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                placeholder="tu-empresa"
+              />
+              <span class="inline-flex items-center px-4 py-3 bg-gray-100 border border-l-0 border-gray-300 rounded-r-xl text-gray-600">
+                .kairos.app
+              </span>
+            </div>
+            <p class="mt-1 text-sm text-gray-500">Solo letras minusculas, numeros y guiones.</p>
           </div>
 
           <!-- Terms -->
-          <div class="flex items-start mb-6">
+          <div class="flex items-start">
             <input
               type="checkbox"
-              id="google_terms"
+              id="terms"
               name="terms"
               required
               class="mt-1 h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
             />
-            <label for="google_terms" class="ml-2 text-sm text-gray-600">
-              Acepto los <a href="/terminos" class="text-primary-600 hover:underline">Terminos de Servicio</a> y la <a href="/privacidad" class="text-primary-600 hover:underline">Politica de Privacidad</a>
+            <label for="terms" class="ml-2 text-sm text-gray-600">
+              Acepto los <a href="#" class="text-primary-600 hover:underline">Terminos de Servicio</a> y la <a href="#" class="text-primary-600 hover:underline">Politica de Privacidad</a>
             </label>
           </div>
 
-          <!-- Hidden token field -->
-          <input type="hidden" id="google_token" name="google_token" value="" />
-
-          <!-- Submit -->
+          <!-- Submit button -->
           <button
             type="submit"
-            id="google-submit-btn"
+            id="submit-btn"
             class="w-full py-4 px-6 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 focus:ring-4 focus:ring-primary-500/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <span id="google-btn-text">Crear Mi Cuenta</span>
-            <span id="google-btn-loading" class="hidden">
+            <span id="btn-text">Crear Mi Cuenta Gratis</span>
+            <span id="btn-loading" class="hidden">
               <svg class="animate-spin h-5 w-5 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
             </span>
-          </button>
-
-          <!-- Back button -->
-          <button
-            type="button"
-            id="google-back-btn"
-            class="w-full mt-3 py-2 text-gray-500 text-sm hover:text-gray-700 transition-colors"
-          >
-            Volver atras
-          </button>
-
-          <!-- Error message -->
-          <div id="google-error-message" class="hidden mt-4 p-4 bg-red-50 border border-red-200 rounded-xl">
-            <div class="flex items-center">
-              <svg class="w-5 h-5 text-red-600 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-              </svg>
-              <span id="google-error-text" class="text-red-800 text-sm"></span>
-            </div>
-          </div>
-        </form>
-
-        <!-- Step 2: Email flow - Full form -->
-        <form id="step-email-form" class="hidden">
-          <div class="text-center mb-6">
-            <span class="inline-block px-3 py-1 bg-primary-100 text-primary-700 text-sm font-medium rounded-full mb-3">
-              Paso 2 de 2
-            </span>
-            <h3 class="text-xl font-semibold text-gray-900">Completa tus datos</h3>
-          </div>
-
-          <div class="space-y-4">
-            <!-- School name -->
-            <div>
-              <label for="email_school_name" class="block text-sm font-medium text-gray-700 mb-2">
-                Nombre de tu Colegio o Institucion
-              </label>
-              <input
-                type="text"
-                id="email_school_name"
-                name="school_name"
-                required
-                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                placeholder="Ej: Colegio San Jose"
-              />
-            </div>
-
-            <!-- Email -->
-            <div>
-              <label for="email_address" class="block text-sm font-medium text-gray-700 mb-2">
-                Tu Email
-              </label>
-              <input
-                type="email"
-                id="email_address"
-                name="email"
-                required
-                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                placeholder="tu@email.com"
-              />
-            </div>
-
-            <!-- Password -->
-            <div>
-              <label for="email_password" class="block text-sm font-medium text-gray-700 mb-2">
-                Crea una contrasena
-              </label>
-              <input
-                type="password"
-                id="email_password"
-                name="password"
-                required
-                minlength="8"
-                class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
-                placeholder="Minimo 8 caracteres"
-              />
-            </div>
-
-            <!-- Terms -->
-            <div class="flex items-start">
-              <input
-                type="checkbox"
-                id="email_terms"
-                name="terms"
-                required
-                class="mt-1 h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
-              />
-              <label for="email_terms" class="ml-2 text-sm text-gray-600">
-                Acepto los <a href="/terminos" class="text-primary-600 hover:underline">Terminos de Servicio</a> y la <a href="/privacidad" class="text-primary-600 hover:underline">Politica de Privacidad</a>
-              </label>
-            </div>
-          </div>
-
-          <!-- Submit -->
-          <button
-            type="submit"
-            id="email-submit-btn"
-            class="w-full mt-6 py-4 px-6 bg-primary-600 text-white font-semibold rounded-xl hover:bg-primary-700 focus:ring-4 focus:ring-primary-500/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <span id="email-btn-text">Crear Mi Cuenta</span>
-            <span id="email-btn-loading" class="hidden">
-              <svg class="animate-spin h-5 w-5 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-            </span>
-          </button>
-
-          <!-- Back button -->
-          <button
-            type="button"
-            id="email-back-btn"
-            class="w-full mt-3 py-2 text-gray-500 text-sm hover:text-gray-700 transition-colors"
-          >
-            Volver atras
-          </button>
-
-          <!-- Error message -->
-          <div id="email-error-message" class="hidden mt-4 p-4 bg-red-50 border border-red-200 rounded-xl">
-            <div class="flex items-center">
-              <svg class="w-5 h-5 text-red-600 mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
-              </svg>
-              <span id="email-error-text" class="text-red-800 text-sm"></span>
-            </div>
-          </div>
-        </form>
-
-        <!-- Success state (email flow) -->
-        <div id="step-success" class="hidden text-center">
-          <div class="mb-6">
-            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-semibold text-gray-900 mb-2">Revisa tu email</h3>
-            <p class="text-gray-500">Te enviamos un enlace de confirmacion a:</p>
-            <p id="success-email" class="font-medium text-gray-900 mt-1"></p>
-          </div>
-          <div class="bg-blue-50 border border-blue-200 rounded-xl p-4">
-            <p class="text-blue-800 text-sm">
-              Haz clic en el enlace del email para activar tu cuenta. El enlace expira en 48 horas.
-            </p>
-          </div>
-          <button
-            type="button"
-            id="success-restart-btn"
-            class="mt-6 text-primary-600 text-sm font-medium hover:underline"
-          >
-            Registrar otra institucion
           </button>
         </div>
 
-      </div>
+        <!-- Google Auth Info (hidden, stores token) -->
+        <input type="hidden" id="google_token" name="google_token" value="" />
+
+        <!-- Success message -->
+        <div id="success-message" class="hidden mt-6 p-4 bg-green-50 border border-green-200 rounded-xl">
+          <div class="flex items-center">
+            <svg class="w-5 h-5 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+            </svg>
+            <span class="text-green-800 font-medium">Cuenta creada exitosamente. Revisa tu email para continuar.</span>
+          </div>
+        </div>
+
+        <!-- Error message -->
+        <div id="error-message" class="hidden mt-6 p-4 bg-red-50 border border-red-200 rounded-xl">
+          <div class="flex items-center">
+            <svg class="w-5 h-5 text-red-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
+            <span id="error-text" class="text-red-800 font-medium">Ha ocurrido un error. Por favor intenta de nuevo.</span>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 </section>
@@ -292,56 +176,28 @@ const googleClientId = import.meta.env.PUBLIC_GOOGLE_CLIENT_ID || '';
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
 <script define:vars={{ apiUrl, googleClientId }}>
-  // DOM Elements - Steps
-  const stepChooseMethod = document.getElementById('step-choose-method');
-  const stepGoogleForm = document.getElementById('step-google-form');
-  const stepEmailForm = document.getElementById('step-email-form');
-  const stepSuccess = document.getElementById('step-success');
-
-  // DOM Elements - Step 1
-  const googleSigninBtn = document.getElementById('google-signin-btn');
-  const googleLoading = document.getElementById('google-loading');
-  const showEmailFormBtn = document.getElementById('show-email-form-btn');
-
-  // DOM Elements - Google form
+  // DOM Elements
+  const form = document.getElementById('signup-form');
+  const submitBtn = document.getElementById('submit-btn');
+  const btnText = document.getElementById('btn-text');
+  const btnLoading = document.getElementById('btn-loading');
+  const successMessage = document.getElementById('success-message');
+  const errorMessage = document.getElementById('error-message');
+  const errorText = document.getElementById('error-text');
+  const companyInput = document.getElementById('company');
+  const subdomainInput = document.getElementById('subdomain');
+  const emailInput = document.getElementById('email');
+  const adminNameInput = document.getElementById('admin_name');
+  const adminNameField = document.getElementById('admin-name-field');
   const googleTokenInput = document.getElementById('google_token');
-  const googleEmailDisplay = document.getElementById('google-email-display');
-  const googleSchoolNameInput = document.getElementById('google_school_name');
-  const googleSubmitBtn = document.getElementById('google-submit-btn');
-  const googleBtnText = document.getElementById('google-btn-text');
-  const googleBtnLoading = document.getElementById('google-btn-loading');
-  const googleBackBtn = document.getElementById('google-back-btn');
-  const googleErrorMessage = document.getElementById('google-error-message');
-  const googleErrorText = document.getElementById('google-error-text');
+  const googleSigninBtn = document.getElementById('google-signin-btn');
+  const googleConnected = document.getElementById('google-connected');
+  const googleConnectedEmail = document.getElementById('google-connected-email');
+  const googleLoading = document.getElementById('google-loading');
+  const googleDivider = document.getElementById('google-divider');
 
-  // DOM Elements - Email form
-  const emailSchoolNameInput = document.getElementById('email_school_name');
-  const emailAddressInput = document.getElementById('email_address');
-  const emailPasswordInput = document.getElementById('email_password');
-  const emailSubmitBtn = document.getElementById('email-submit-btn');
-  const emailBtnText = document.getElementById('email-btn-text');
-  const emailBtnLoading = document.getElementById('email-btn-loading');
-  const emailBackBtn = document.getElementById('email-back-btn');
-  const emailErrorMessage = document.getElementById('email-error-message');
-  const emailErrorText = document.getElementById('email-error-text');
-
-  // DOM Elements - Success
-  const successEmail = document.getElementById('success-email');
-  const successRestartBtn = document.getElementById('success-restart-btn');
-
-  // Helper: Show a specific step, hide others
-  function showStep(stepId) {
-    const steps = [stepChooseMethod, stepGoogleForm, stepEmailForm, stepSuccess];
-    steps.forEach(step => {
-      if (step) {
-        step.classList.add('hidden');
-      }
-    });
-    const targetStep = document.getElementById(stepId);
-    if (targetStep) {
-      targetStep.classList.remove('hidden');
-    }
-  }
+  // Track if user signed in with Google
+  let isGoogleSignIn = false;
 
   // Decode JWT token to get user info
   function decodeJwtPayload(token) {
@@ -372,18 +228,60 @@ const googleClientId = import.meta.env.PUBLIC_GOOGLE_CLIENT_ID || '';
         googleTokenInput.value = credential;
       }
 
-      // Display connected email
-      if (googleEmailDisplay) {
-        googleEmailDisplay.textContent = payload.email || '';
+      // Pre-fill form fields
+      if (emailInput) {
+        emailInput.value = payload.email || '';
+        emailInput.classList.add('bg-gray-50');
+        emailInput.setAttribute('readonly', 'true');
       }
 
-      // Move to Google form step
-      showStep('step-google-form');
-
-      // Focus on school name input
-      if (googleSchoolNameInput) {
-        setTimeout(() => googleSchoolNameInput.focus(), 100);
+      if (adminNameInput) {
+        adminNameInput.value = payload.name || '';
       }
+
+      // Show admin name field
+      if (adminNameField) {
+        adminNameField.classList.remove('hidden');
+      }
+
+      // Mark as Google sign-in
+      isGoogleSignIn = true;
+
+      // Hide Google button and show connected state
+      if (googleSigninBtn) {
+        googleSigninBtn.classList.add('hidden');
+      }
+      if (googleConnected && googleConnectedEmail) {
+        // Use textContent for safe text insertion (no XSS risk)
+        googleConnectedEmail.textContent = 'Conectado como ' + (payload.email || '');
+        googleConnected.classList.remove('hidden');
+      }
+
+      // Focus on company name if empty
+      if (companyInput && !companyInput.value) {
+        companyInput.focus();
+      }
+    }
+  }
+
+  // Reset Google sign-in state
+  function resetGoogleSignIn() {
+    isGoogleSignIn = false;
+    if (googleTokenInput) {
+      googleTokenInput.value = '';
+    }
+    if (emailInput) {
+      emailInput.classList.remove('bg-gray-50');
+      emailInput.removeAttribute('readonly');
+    }
+    if (adminNameField) {
+      adminNameField.classList.add('hidden');
+    }
+    if (googleConnected) {
+      googleConnected.classList.add('hidden');
+    }
+    if (googleSigninBtn) {
+      googleSigninBtn.classList.remove('hidden');
     }
   }
 
@@ -417,13 +315,19 @@ const googleClientId = import.meta.env.PUBLIC_GOOGLE_CLIENT_ID || '';
         googleLoading.classList.add('hidden');
       }
     } else if (!googleClientId) {
-      // Hide Google option if no client ID configured
-      const googleContainer = document.getElementById('google-signin-container');
-      if (googleContainer) {
-        googleContainer.style.display = 'none';
+      // Hide Google button area if no client ID configured
+      if (googleSigninBtn) {
+        googleSigninBtn.style.display = 'none';
+      }
+      if (googleConnected) {
+        googleConnected.style.display = 'none';
       }
       if (googleLoading) {
         googleLoading.style.display = 'none';
+      }
+      // Also hide the divider
+      if (googleDivider) {
+        googleDivider.style.display = 'none';
       }
     }
   }
@@ -434,171 +338,87 @@ const googleClientId = import.meta.env.PUBLIC_GOOGLE_CLIENT_ID || '';
   } else {
     // Wait for the SDK to load
     window.addEventListener('load', () => {
+      // Give the SDK a moment to initialize
       setTimeout(initializeGoogleSignIn, 100);
     });
   }
 
-  // Show email form when button clicked
-  if (showEmailFormBtn) {
-    showEmailFormBtn.addEventListener('click', () => {
-      showStep('step-email-form');
-      if (emailSchoolNameInput) {
-        setTimeout(() => emailSchoolNameInput.focus(), 100);
-      }
-    });
-  }
+  // Auto-generate subdomain from company name
+  companyInput?.addEventListener('input', (e) => {
+    const company = e.target.value;
+    const subdomain = company
+      .toLowerCase()
+      .replace(/[^a-z0-9\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .substring(0, 30);
+    if (subdomainInput) {
+      subdomainInput.value = subdomain;
+    }
+  });
 
-  // Back buttons
-  if (googleBackBtn) {
-    googleBackBtn.addEventListener('click', () => {
-      showStep('step-choose-method');
-      // Clear token
-      if (googleTokenInput) {
-        googleTokenInput.value = '';
-      }
-    });
-  }
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-  if (emailBackBtn) {
-    emailBackBtn.addEventListener('click', () => {
-      showStep('step-choose-method');
-    });
-  }
+    // Get form data
+    const formData = new FormData(form);
+    const googleToken = formData.get('google_token');
 
-  // Restart from success
-  if (successRestartBtn) {
-    successRestartBtn.addEventListener('click', () => {
-      // Reset forms
-      if (stepGoogleForm) stepGoogleForm.reset();
-      if (stepEmailForm) stepEmailForm.reset();
-      if (googleTokenInput) googleTokenInput.value = '';
-      showStep('step-choose-method');
-    });
-  }
+    // Build request data
+    const data = {
+      company_name: formData.get('company'),
+      admin_email: formData.get('email'),
+      subdomain: formData.get('subdomain'),
+    };
 
-  // Google form submission
-  if (stepGoogleForm) {
-    stepGoogleForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
+    // Add Google token if present (replaces password authentication)
+    if (googleToken && isGoogleSignIn) {
+      data.google_token = googleToken;
+      data.admin_name = formData.get('admin_name');
+    }
 
-      const schoolName = googleSchoolNameInput?.value?.trim();
-      const token = googleTokenInput?.value;
+    // Show loading state
+    submitBtn?.setAttribute('disabled', 'true');
+    btnText?.classList.add('hidden');
+    btnLoading?.classList.remove('hidden');
+    successMessage?.classList.add('hidden');
+    errorMessage?.classList.add('hidden');
 
-      if (!schoolName) {
-        if (googleErrorText) googleErrorText.textContent = 'El nombre del colegio es requerido.';
-        googleErrorMessage?.classList.remove('hidden');
-        return;
-      }
+    try {
+      // Call control-plane API to create tenant
+      const response = await fetch(`${apiUrl}/tenants`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
 
-      if (!token) {
-        if (googleErrorText) googleErrorText.textContent = 'Error de autenticacion. Intenta de nuevo.';
-        googleErrorMessage?.classList.remove('hidden');
-        return;
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.detail || 'Error creating tenant');
       }
 
-      // Show loading
-      googleSubmitBtn?.setAttribute('disabled', 'true');
-      googleBtnText?.classList.add('hidden');
-      googleBtnLoading?.classList.remove('hidden');
-      googleErrorMessage?.classList.add('hidden');
+      // Show success message
+      successMessage?.classList.remove('hidden');
+      form.reset();
 
-      try {
-        const response = await fetch(`${apiUrl}/api/tenants/signup`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            school_name: schoolName,
-            google_token: token,
-          }),
-        });
+      // Reset Google sign-in state
+      resetGoogleSignIn();
 
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({}));
-          throw new Error(errorData.detail || 'Error creando la cuenta');
-        }
-
-        const data = await response.json();
-
-        // Google flow: redirect to tenant
-        if (data.tenant_url) {
-          window.location.href = data.tenant_url;
-        } else {
-          throw new Error('No se recibio la URL del tenant.');
-        }
-      } catch (error) {
-        if (googleErrorText) googleErrorText.textContent = error.message || 'Ha ocurrido un error. Por favor intenta de nuevo.';
-        googleErrorMessage?.classList.remove('hidden');
-      } finally {
-        googleSubmitBtn?.removeAttribute('disabled');
-        googleBtnText?.classList.remove('hidden');
-        googleBtnLoading?.classList.add('hidden');
+      // Re-initialize Google button
+      initializeGoogleSignIn();
+    } catch (error) {
+      // Show error message
+      if (errorText) {
+        errorText.textContent = error.message || 'Ha ocurrido un error. Por favor intenta de nuevo.';
       }
-    });
-  }
-
-  // Email form submission
-  if (stepEmailForm) {
-    stepEmailForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const schoolName = emailSchoolNameInput?.value?.trim();
-      const email = emailAddressInput?.value?.trim();
-      const password = emailPasswordInput?.value;
-
-      // Validation
-      if (!schoolName) {
-        if (emailErrorText) emailErrorText.textContent = 'El nombre del colegio es requerido.';
-        emailErrorMessage?.classList.remove('hidden');
-        return;
-      }
-
-      if (!email) {
-        if (emailErrorText) emailErrorText.textContent = 'El email es requerido.';
-        emailErrorMessage?.classList.remove('hidden');
-        return;
-      }
-
-      if (!password || password.length < 8) {
-        if (emailErrorText) emailErrorText.textContent = 'La contrasena debe tener al menos 8 caracteres.';
-        emailErrorMessage?.classList.remove('hidden');
-        return;
-      }
-
-      // Show loading
-      emailSubmitBtn?.setAttribute('disabled', 'true');
-      emailBtnText?.classList.add('hidden');
-      emailBtnLoading?.classList.remove('hidden');
-      emailErrorMessage?.classList.add('hidden');
-
-      try {
-        const response = await fetch(`${apiUrl}/api/tenants/signup`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            school_name: schoolName,
-            email: email,
-            password: password,
-          }),
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({}));
-          throw new Error(errorData.detail || 'Error creando la cuenta');
-        }
-
-        // Email flow: show success message
-        if (successEmail) {
-          successEmail.textContent = email;
-        }
-        showStep('step-success');
-      } catch (error) {
-        if (emailErrorText) emailErrorText.textContent = error.message || 'Ha ocurrido un error. Por favor intenta de nuevo.';
-        emailErrorMessage?.classList.remove('hidden');
-      } finally {
-        emailSubmitBtn?.removeAttribute('disabled');
-        emailBtnText?.classList.remove('hidden');
-        emailBtnLoading?.classList.add('hidden');
-      }
-    });
-  }
+      errorMessage?.classList.remove('hidden');
+    } finally {
+      // Reset button state
+      submitBtn?.removeAttribute('disabled');
+      btnText?.classList.remove('hidden');
+      btnLoading?.classList.add('hidden');
+    }
+  });
 </script>
