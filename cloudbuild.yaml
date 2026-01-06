@@ -1,5 +1,12 @@
 # Kairos Landing Page Deployment Pipeline
-# Triggered by: push to main branch in kairos-landing repo
+# Triggers:
+#   - Push to main → Deploy to kairos-landing-dev (Dev)
+#   - Tag v* → Deploy to kairos-landing (Prod)
+#
+# Substitutions are set by the trigger:
+#   _SERVICE_NAME: kairos-landing-dev (dev) or kairos-landing (prod)
+#   _CONTROL_PLANE_URL: api-dev.1kairos.com (dev) or api.1kairos.com (prod)
+#   _APP_URL: app-dev.1kairos.com (dev) or app.1kairos.com (prod)
 
 options:
   logging: CLOUD_LOGGING_ONLY
@@ -9,6 +16,8 @@ substitutions:
   _SERVICE_NAME: kairos-landing
   _REGION: us-central1
   _PORT: '4321'
+  _CONTROL_PLANE_URL: https://api.1kairos.com
+  _APP_URL: https://app.1kairos.com
 
 steps:
   # Install dependencies
@@ -25,8 +34,9 @@ steps:
       - '-c'
       - |
         export PUBLIC_GOOGLE_CLIENT_ID="684614817316-7jguqf1cngtr9dn79kjpnjdmrukdua59.apps.googleusercontent.com"
-        export PUBLIC_CONTROL_PLANE_API_URL="https://kairos-control-plane-684614817316.us-central1.run.app"
-        export PUBLIC_API_URL="https://kairos-control-plane-684614817316.us-central1.run.app"
+        export PUBLIC_CONTROL_PLANE_API_URL="${_CONTROL_PLANE_URL}"
+        export PUBLIC_API_URL="${_CONTROL_PLANE_URL}"
+        export PUBLIC_APP_URL="${_APP_URL}"
         npm run build
     waitFor: ['install']
 
