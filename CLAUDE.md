@@ -10,9 +10,55 @@ Landing page de marketing para Kairos. Punto de entrada para prospects (directiv
 - **Styling**: Tailwind CSS 4.1
 - **Deploy**: Cloud Run
 
-## URL
+---
 
-- Producción: www.1kairos.com
+## Desarrollo y Deploy
+
+> **Documentación completa**: Ver [infra/docs/DEVELOPMENT.md](https://github.com/franorzabal-hub/frappe-saas-platform/blob/main/docs/DEVELOPMENT.md)
+
+### Ambientes
+
+| Ambiente | URL | Trigger |
+|----------|-----|---------|
+| **Dev** | `www-dev.1kairos.com` | Push a `main` |
+| **Prod** | `www.1kairos.com` | Tag `v*` |
+
+### Desarrollo (sin Docker local)
+
+```bash
+# Configurar ambiente
+cat > .env << 'EOF'
+PUBLIC_CONTROL_PLANE_URL=https://api-dev.1kairos.com
+PUBLIC_APP_URL=https://app-dev.1kairos.com
+EOF
+
+# Desarrollar
+npm install
+npm run dev
+# → http://localhost:4321 (conecta a api-dev)
+```
+
+### Deploy
+
+```bash
+# Deploy a Dev (automático)
+git add . && git commit -m "feat: ..." && git push
+# → Automático a www-dev.1kairos.com
+
+# Deploy a Prod
+git tag v1.0.0 -m "Release 1.0.0"
+git push origin v1.0.0
+# → Automático a www.1kairos.com
+```
+
+---
+
+## URLs
+
+| Ambiente | URL |
+|----------|-----|
+| Dev | `www-dev.1kairos.com` |
+| Producción | `www.1kairos.com` |
 
 ## Estructura
 
@@ -33,15 +79,8 @@ landing/
 │   └── styles/
 │       └── global.css
 ├── astro.config.mjs
+├── cloudbuild.yaml            # CI/CD
 └── package.json
-```
-
-## Desarrollo
-
-```bash
-npm install
-npm run dev     # http://localhost:4321
-npm run build   # Build producción
 ```
 
 ## Flujo de Signup
@@ -58,10 +97,11 @@ npm run build   # Build producción
 
 ## Variables de Entorno
 
-```bash
-PUBLIC_CONTROL_PLANE_API_URL=https://api.1kairos.com
-PUBLIC_GOOGLE_CLIENT_ID=xxx.apps.googleusercontent.com
-```
+| Variable | Dev | Prod |
+|----------|-----|------|
+| `PUBLIC_CONTROL_PLANE_URL` | `https://api-dev.1kairos.com` | `https://api.1kairos.com` |
+| `PUBLIC_APP_URL` | `https://app-dev.1kairos.com` | `https://app.1kairos.com` |
+| `PUBLIC_GOOGLE_CLIENT_ID` | (mismo) | (mismo) |
 
 ## Componentes
 
